@@ -35,7 +35,7 @@ public class HttpClient {
 	
 	public void sendGetInfoRequest()throws Exception{
 		//sparametryzowaæ
-		request=new HttpGet();
+		request=new HttpGet(Config.getURL("getInfo"));
 		response=httpClient.execute(request);
 		BufferedReader br;
 		br=new BufferedReader(new InputStreamReader(response
@@ -45,7 +45,7 @@ public class HttpClient {
 			System.out.println(line);
 	}
 	public void sendInsertRequest(String[] values)throws Exception{
-		HttpPost post=new HttpPost("http://localhost:5022/create");
+		HttpPost post=new HttpPost(Config.getURL("insert"));
 		ArrayList<BasicNameValuePair> params=new ArrayList<>();
 		params.add(new BasicNameValuePair("tableName", values[0]));
 		for(int i=1; i<values.length; i++)
@@ -53,5 +53,10 @@ public class HttpClient {
 		post.setEntity(new UrlEncodedFormEntity(params, Consts.UTF_8));
 		httpClient.execute(post, responseHandler);
 				
+	}
+
+	public void sendCreateTableRequest(String[] columns) {
+		
+		
 	}
 }

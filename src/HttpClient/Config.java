@@ -24,8 +24,20 @@ public class Config {
 		}
 		
 	}
-	public static String getProperty(String key, String defaultValue){
-		return prop.getProperty(key, defaultValue);
+	public static String getProperty(String key){
+		return prop.getProperty(key);
+	}
+	//Function: create - for create table
+	//			getInfo - for get info about existing tables
+	//			insert - for insert row into table
+	public static String getURL(String function){
+		String serverAddress="http://";
+		serverAddress+=getProperty("serverAddress");
+		serverAddress+=":";
+		serverAddress+=getProperty("port");
+		serverAddress+="/";
+		serverAddress+=getProperty(function);
+		return serverAddress;
 	}
 
 }

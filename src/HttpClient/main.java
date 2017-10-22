@@ -24,6 +24,13 @@ public class main {
 						+ "wartoœæ kolumny1|wartoœæ kolumny2|...|wartoœæ kolumny n\n>");
 				input=userInput.nextLine();
 				hc.sendInsertRequest(input.split("|"));
+				break;
+			case "create table":
+				System.out.println("Podaj: \nNazwa Tabeli|"
+						+ "wartoœæ kolumny1|wartoœæ kolumny2|...|wartoœæ kolumny n\n>");
+				input=userInput.nextLine();
+				hc.sendCreateTableRequest(input.split("|"));
+				break;
 				
 			}
 			if(input.equals("exit"))
