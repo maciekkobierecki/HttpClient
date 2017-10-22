@@ -23,14 +23,16 @@ public class main {
 				System.out.println("Podaj: \nNazwa Tabeli|"
 						+ "wartoœæ kolumny1|wartoœæ kolumny2|...|wartoœæ kolumny n\n>");
 				input=userInput.nextLine();
-				hc.sendInsertRequest(input.split("|"));
+				hc.sendPostRequest(Config.getProperty("insert"),input.split("|"));
 				break;
 			case "create table":
 				System.out.println("Podaj: \nNazwa Tabeli|"
 						+ "wartoœæ kolumny1|wartoœæ kolumny2|...|wartoœæ kolumny n\n>");
 				input=userInput.nextLine();
-				hc.sendCreateTableRequest(input.split("|"));
+				hc.sendPostRequest(Config.getProperty("create"),input.split("|"));
 				break;
+			case "ls":
+				System.out.println(Config.getProperty("ls"));
 				
 			}
 			if(input.equals("exit"))

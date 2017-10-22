@@ -44,8 +44,8 @@ public class HttpClient {
 		while((line=br.readLine())!=null)
 			System.out.println(line);
 	}
-	public void sendInsertRequest(String[] values)throws Exception{
-		HttpPost post=new HttpPost(Config.getURL("insert"));
+	public void sendPostRequest(String function, String[] values)throws Exception{
+		HttpPost post=new HttpPost(Config.getURL(function));
 		ArrayList<BasicNameValuePair> params=new ArrayList<>();
 		params.add(new BasicNameValuePair("tableName", values[0]));
 		for(int i=1; i<values.length; i++)
@@ -55,8 +55,5 @@ public class HttpClient {
 				
 	}
 
-	public void sendCreateTableRequest(String[] columns) {
-		
-		
-	}
+	
 }
