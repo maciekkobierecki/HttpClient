@@ -1,6 +1,8 @@
 package HttpClient;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class main {
@@ -20,16 +22,16 @@ public class main {
 				hc.sendGetInfoRequest();
 				break;
 			case "insert":
-				System.out.println("Podaj: \nNazwa Tabeli|"
-						+ "wartoœæ kolumny1|wartoœæ kolumny2|...|wartoœæ kolumny n\n>");
-				input=userInput.nextLine();
-				hc.sendPostRequest(Config.getProperty("insert"),input.split("|"));
+				ArrayList<String>parameters=new ArrayList<>();
+				String line;
+				System.out.println("Pass information in format:\n EventName \n ColumnName1=...\n ColumnName2=...\n ...\n ColumnNameN=...;\n"
+						+ "Attention! date and id column are automatic filled. Please don't input parameters: id=.. and date=..");
+				sendRequest(Config.getProperty("insert"), userInput, hc);
 				break;
 			case "create table":
-				System.out.println("Podaj: \nNazwa Tabeli|"
-						+ "wartoœæ kolumny1|wartoœæ kolumny2|...|wartoœæ kolumny n\n>");
-				input=userInput.nextLine();
-				hc.sendPostRequest(Config.getProperty("create"),input.split("|"));
+				System.out.println("Pass information in format:\n EventName \n Column1=name1\n ColumnName2=name2\n ...\n ColumnNameN=nameN;\n"
+						+ "Attention! date and id column are created automatically. Please don't input id and date columns");
+				sendRequest(Config.getProperty("create"), userInput, hc);
 				break;
 			case "ls":
 				System.out.println(Config.getProperty("ls"));
@@ -45,6 +47,27 @@ public class main {
 		
 		
 
+	}
+	public static String removeEndCharacter(String str){
+		if (str != null && str.length() > 0) 
+	        str = str.substring(0, str.length() - 1);
+	    return str;
+	}
+	public static void sendRequest(String function, Scanner userInput, HttpClient hc) throws Exception{
+		String line;
+		ArrayList<String>parameters=new ArrayList<>();
+		while(true){
+			line=userInput.nextLine();				
+			if(line.substring(line.length()-1).equals(";")){
+				line=removeEndCharacter(line);
+				parameters.add(line);
+				break;
+			}
+			else
+				parameters.add(line);
+			
+		}
+		hc.sendPostRequest(Config.getProperty(function),parameters);
 	}
 
 }
