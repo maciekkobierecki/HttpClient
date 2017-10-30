@@ -1,8 +1,9 @@
 package HttpClient;
 
-import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 import java.util.Scanner;
 
 public class main {
@@ -67,7 +68,16 @@ public class main {
 				parameters.add(line);
 			
 		}
+		if(function.equals("insert")){
+			String date="date="+getCurrentDate();
+			parameters.add(date);
+		}
 		hc.sendPostRequest(Config.getProperty(function),parameters);
+	}
+	public static String getCurrentDate(){
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		Date date = new Date();
+		return dateFormat.format(date);
 	}
 
 }
